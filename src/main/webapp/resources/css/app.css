@@ -1,0 +1,36 @@
+#body{
+    min-height: calc(100vh - 58px);
+}
+
+.register-login-container{
+    margin: 70px auto 0;
+    max-width: 500px;
+}
+
+.navbar-nav{
+    flex-direction: row;
+}
+
+.icon-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    padding-right: 5px;
+    font-size: 17px;
+}
+
+.form-header{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.content{
+    margin-top: 40px;
+}
+
+table.table tbody td{
+    vertical-align: middle;
+}
