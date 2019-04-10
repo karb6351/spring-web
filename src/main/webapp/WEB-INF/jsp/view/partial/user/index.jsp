@@ -46,7 +46,7 @@
                                                         <i class="fas fa-trash-alt icon"></i>
                                                         <span>Delete</span>
                                                     </a>
-                                                    <form style="opacity: 0;" id="delete-form-${user.id}" action="<c:url value="/user/delete/${user.id}"></c:url>" method="post">
+                                                    <form style="display: none" id="delete-form-${user.id}" action="<c:url value="/user/delete/${user.id}"></c:url>" method="post">
                                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                     </form>
                                                 </td>

@@ -27,6 +27,9 @@ CREATE TABLE lectures (
     PRIMARY KEY (id)
 );
 
+INSERT INTO lectures(title) VALUES ('Lecture 1: Overview of Web Applications');
+INSERT INTO lectures(title) VALUES ('Lecture 2: Servlet');
+
 CREATE TABLE materials (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     filename VARCHAR(255) DEFAULT NULL,

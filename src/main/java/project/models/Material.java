@@ -9,29 +9,39 @@ public class Material implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
 
     private String filename;
 
     @Column(name = "content_type")
-    private String content_type;
+    private String contentType;
 
     @Basic(fetch = FetchType.LAZY)
     @Lob
-    private byte[] contents;
+    private byte[] content;
 
     @Column(name = "lecture_id", insertable=false, updatable=false)
-    private long lectureId;
+    private Integer lectureId;
 
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
-    public long getId() {
+    public Material(){}
+
+    public Material(String filename, byte[] content, String contentType, Lecture lecture){
+        this.filename = filename;
+        this.content = content;
+        this.contentType = contentType;
+        this.lectureId = lecture.getId();
+        this.lecture = lecture;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -43,27 +53,27 @@ public class Material implements Serializable {
         this.filename = filename;
     }
 
-    public String getContent_type() {
-        return content_type;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setContent_type(String content_type) {
-        this.content_type = content_type;
+    public void setContentType(String content_type) {
+        this.contentType = content_type;
     }
 
-    public byte[] getContents() {
-        return contents;
+    public byte[] getContent() {
+        return content;
     }
 
-    public void setContents(byte[] contents) {
-        this.contents = contents;
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 
-    public long getLectureId() {
+    public Integer getLectureId() {
         return lectureId;
     }
 
-    public void setLectureId(long lectureId) {
+    public void setLectureId(Integer lectureId) {
         this.lectureId = lectureId;
     }
 

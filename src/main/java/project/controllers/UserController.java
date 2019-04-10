@@ -70,6 +70,9 @@ public class UserController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, ModelMap modelMap){
         User user = userService.getUserById(id);
+        if(user == null){
+            return "redirect:/user/";
+        }
         List<UserRole> roles = userRoleService.getUserRoles(user);
         modelMap.addAttribute("model", user);
         modelMap.addAttribute("roleList", roles);

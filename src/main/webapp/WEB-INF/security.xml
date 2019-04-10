@@ -30,7 +30,18 @@
 
     <http auto-config="true">
         <!--<intercept-url pattern="/ticket/delete/**" access="hasRole('ADMIN')" />-->
+
+        <intercept-url pattern="/material/create" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/material/download/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
+        <intercept-url pattern="/material/delete/**" access="hasRole('LECTURER')" />
+
+        <intercept-url pattern="/lecture/create" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/edit/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/delete/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
+
         <intercept-url pattern="/user/**" access="hasRole('LECTURER')" />
+
         <intercept-url pattern="/login" access="permitAll" />
         <form-login login-page="/login" authentication-failure-url="/login?error" />
         <logout logout-url="/logout"
