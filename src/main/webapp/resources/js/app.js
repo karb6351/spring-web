@@ -59,9 +59,11 @@ function initDropzone(){
             },
             init: function(){
                 var _this = this;
-                $(this).on("completemultiple", function(files, response){
-                    console.log(files);
-                    console.log(response);
+                this.on("completemultiple", function(files){
+                    // window.location.reload();
+                    $("#wrapper").load($('#dropzone').data("partialViewUrl"), function() {
+                        $('#dropzone-modal').modal('hide');
+                    });
                 });
                 $('#upload-button').click(function(){
                     _this.processQueue();

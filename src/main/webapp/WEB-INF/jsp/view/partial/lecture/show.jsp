@@ -3,60 +3,32 @@
 
 <t:master>
     <jsp:body>
-        <%--<%@ include file="../../include/dropzone.jsp" %>--%>
         <jsp:include page="../../include/dropzone.jsp">
             <jsp:param name="lectureId" value="${lecture.id}"/>
         </jsp:include>
         <div class="container">
-            <div class="card content">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <span>${lecture.name}</span>
-                    <security:authorize access="hasRole('LECTURER')">
-                        <button data-toggle="modal" data-target="#dropzone-modal" class="btn btn-success">
-                            <i class="fas fa-plus-circle icon"></i>
-                            <span>Upload material</span>
-                        </button>
-                    </security:authorize>
-                </div>
-                <c:choose>
-                    <c:when test="${fn:length(lecture.materials) <= 0}">
-                        <div class="card-body">
-                            <div class="alert alert-secondary" role="alert">No material in this lecture</div>
+            <div class="row content">
+                <div class="col-12 col-sm-7">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>${lecture.name}</span>
+                            <security:authorize access="hasRole('LECTURER')">
+                                <button data-toggle="modal" data-target="#dropzone-modal" class="btn btn-success">
+                                    <i class="fas fa-plus-circle icon"></i>
+                                    <span>Upload material</span>
+                                </button>
+                            </security:authorize>
                         </div>
-                    </c:when>
-                    <c:otherwise>
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Filename</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${lecture.materials}" var="material">
-                                <tr>
-                                    <td>${material.filename}</td>
-                                    <td>
-                                        <a target="_blank" href="<c:url value="/material/download/${material.id}"></c:url>" class="btn btn-outline-secondary  btn-sm">
-                                            <i class="fas fa-download icon"></i>
-                                            <span>Download</span>
-                                        </a>
-                                        <security:authorize access="hasRole('LECTURER')">
-                                            <a href="#" data-id="${material.id}" data-href="<c:url value="/material/delete/${material.id}"></c:url>" class="delete-button btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt icon"></i>
-                                                <span>Delete</span>
-                                            </a>
-                                            <form style="display: none" id="delete-form-${material.id}" action="<c:url value="/material/delete/${material.id}"></c:url>" method="post">
-                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                            </form>
-                                        </security:authorize>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </c:otherwise>
-                </c:choose>
+                        <div id="wrapper">
+                            <jsp:include page="./material_table.jsp">
+                                <jsp:param name="lecture" value="${lecture}"/>
+                            </jsp:include>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-5">
+                    <jsp:include page="../comment/index.jsp" />
+                </div>
             </div>
         </div>
     </jsp:body>
