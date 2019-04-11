@@ -8,11 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="dropzone" class="dropzone"
-                     data-href="<c:url value="/material/create"></c:url>"
-                     data-lecture-id="${param.lectureId}"
-                     data-partial-view-url="<c:url value="/material/resource/${param.lectureId}"></c:url>"
-                >
+                <div id="dropzone" class="dropzone" data-href="<c:url value="/material/create"></c:url>" data-lecture-id="${param.lectureId}">
                     <div class="dz-preview dz-file-preview">
                         <div class="dz-details">
                             <div class="dz-filename"><span data-dz-name></span></div>

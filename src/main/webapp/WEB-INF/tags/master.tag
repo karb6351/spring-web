@@ -26,6 +26,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
 
     <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
     <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>

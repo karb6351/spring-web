@@ -44,3 +44,7 @@ table.table tbody td{
 .dropzone:hover {
      background-color: #f5f5f5;
 }
+
+.ck-editor__editable {
+    min-height: 400px;
+}

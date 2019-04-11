@@ -59,11 +59,9 @@ function initDropzone(){
             },
             init: function(){
                 var _this = this;
-                this.on("completemultiple", function(files){
-                    // window.location.reload();
-                    $("#wrapper").load($('#dropzone').data("partialViewUrl"), function() {
-                        $('#dropzone-modal').modal('hide');
-                    });
+                $(this).on("completemultiple", function(files, response){
+                    console.log(files);
+                    console.log(response);
                 });
                 $('#upload-button').click(function(){
                     _this.processQueue();
@@ -72,6 +70,20 @@ function initDropzone(){
         });
 
     }
+}
+
+function initEditor(){
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                ]
+            }
+        })
 }
 
 function initSelected2(){
@@ -83,4 +95,5 @@ $(document).ready(function(){
     initDeleteButton();
     initSelected2();
     initDropzone();
+    initEditor();
 });
