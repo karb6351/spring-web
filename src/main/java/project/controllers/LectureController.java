@@ -21,7 +21,7 @@ public class LectureController {
     private LectureService lectureService;
 
     @RequestMapping(value = "/lecture/{id}", method = RequestMethod.GET)
-    public String create(@PathVariable Integer id, ModelMap modelMap){
+    public String show(@PathVariable Integer id, ModelMap modelMap){
         Lecture lecture = lectureService.getLectureById(id);
         if (lecture == null){
             return "redirect:/";

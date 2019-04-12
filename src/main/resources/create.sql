@@ -49,10 +49,8 @@ CREATE TABLE questions (
 CREATE TABLE responses (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     response VARCHAR(255) NOT NULL,
-    question_id INTEGER DEFAULT NOT NULL,
-    user_id INTEGER DEFAULT NOT NULL,
+    question_id INTEGER DEFAULT NULL,
     FOREIGN KEY (question_id) REFERENCES questions(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (id)
 );
 

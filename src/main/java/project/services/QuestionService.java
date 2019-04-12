@@ -1,6 +1,7 @@
 package project.services;
 
 import project.models.Question;
+import project.models.Response;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface QuestionService {
     void updateQuestion(Integer id, String question);
 
     void deleteQuestion(Integer id);
+
+    Question deleteResponse(Response response);
 
 }

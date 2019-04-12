@@ -107,7 +107,7 @@
                                                         <i class="fas fa-trash-alt icon"></i>
                                                         <span>Delete</span>
                                                     </a>
-                                                    <form style="display: none" id="delete-form-${material.id}" action="<c:url value="/question/delete/${question.id}"></c:url>" method="post">
+                                                    <form style="display: none" id="delete-form-${question.id}" action="<c:url value="/question/delete/${question.id}"></c:url>" method="post">
                                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                     </form>
                                                 </td>

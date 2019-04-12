@@ -31,6 +31,7 @@ public class QuestionController {
     @RequestMapping(value = "question/create", method = RequestMethod.GET)
     public String create(ModelMap modelMap){
         modelMap.addAttribute("model", new Question());
+        modelMap.addAttribute("isCreate", true);
         return "partial/question/create_update";
     }
 

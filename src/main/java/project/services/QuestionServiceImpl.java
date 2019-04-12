@@ -2,9 +2,11 @@ package project.services;
 
 import org.springframework.stereotype.Service;
 import project.models.Question;
+import project.models.Response;
 import project.repositories.QuestionRepository;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,5 +43,19 @@ public class QuestionServiceImpl implements  QuestionService {
         }
     }
 
+    public  Question deleteResponse(Response response){
+        Question question = response.getQuestion();
+        List<Response> removeList = new ArrayList<>();
+        for(Response buffer: question.getResponses()){
+            if (buffer.getId().equals(response.getId())){
+                removeList.add(buffer);
+            }
+        }
+        for(Response buffer: removeList){
+            question.removeResponse(buffer);
+        }
+        questionRepository.save(question);
+        return question;
+    }
 
 }

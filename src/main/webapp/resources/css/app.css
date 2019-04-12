@@ -48,3 +48,11 @@ table.table tbody td{
 .ck-editor__editable {
     min-height: 400px;
 }
+
+.action-group{
+    display: flex;
+}
+
+.action-group a:first-child{
+    margin-right: 5px;
+}

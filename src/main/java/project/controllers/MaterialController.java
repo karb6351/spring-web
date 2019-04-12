@@ -75,4 +75,11 @@ public class MaterialController {
         }
         return new RedirectView("/", true);
     }
+
+    @RequestMapping(value = "material/resource/{lectureId}", method = RequestMethod.GET)
+    public String partialView(@PathVariable Integer lectureId, ModelMap modelMap){
+        Lecture lecture = lectureService.getLectureById(lectureId);
+        modelMap.addAttribute("lecture", lecture);
+        return "partial/lecture/material_table";
+    }
 }

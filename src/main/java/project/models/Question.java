@@ -9,6 +9,8 @@ import java.util.List;
 @Table(name = "questions")
 public class Question implements Serializable {
 
+    public static final int LIMITED_RESPONSE = 4;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,6 +24,10 @@ public class Question implements Serializable {
 
     public Question(String question){
         this.question = question;
+    }
+
+    public void removeResponse(Response response){
+        responses.remove(response);
     }
 
     public Integer getId() {

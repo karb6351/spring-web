@@ -11,12 +11,15 @@ function initDeleteButton(){
             buttons: true,
         };
 
+        var _this = this;
+
         // axios.defaults.headers.common[$("meta[name='_csrf_header']").attr("content")] = $('meta[name="_csrf"]').attr("content");
 
         swal(swalObject)
             .then(function (willDelete) {
                 if (willDelete) {
-                    $("#delete-form-" + id).submit();
+                    $(_this).next("form#delete-form-" + id).submit();
+                    // $("#delete-form-" + id).submit();
                 };
             })
             .catch(function(error){
@@ -48,9 +51,11 @@ function initDropzone(){
             url: urlBuilder(getHostMeta(), $('#dropzone').data("href")),
             paramName: 'file',
             method: 'post',
+            maxFiles: 100,
             autoProcessQueue: false,
             // addRemoveLinks: true,
             uploadMultiple: true,
+            parallelUploads: 100,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_csrf"]').attr('content')
             },
@@ -59,9 +64,10 @@ function initDropzone(){
             },
             init: function(){
                 var _this = this;
-                $(this).on("completemultiple", function(files, response){
-                    console.log(files);
-                    console.log(response);
+                this.on("completemultiple", function(files){
+                    $("#wrapper").load($('#dropzone').data("partialViewUrl"), function() {
+                        $('#dropzone-modal').modal('hide');
+                    });
                 });
                 $('#upload-button').click(function(){
                     _this.processQueue();
@@ -73,17 +79,20 @@ function initDropzone(){
 }
 
 function initEditor(){
-    ClassicEditor
-        .create( document.querySelector( '#editor' ), {
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-            heading: {
-                options: [
-                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-                ]
-            }
-        })
+    if(document.querySelector( '#editor' )){
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+                    ]
+                }
+            });
+    }
+
 }
 
 function initSelected2(){
