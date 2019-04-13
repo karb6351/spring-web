@@ -2,8 +2,7 @@ package project.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "lectures")
@@ -17,7 +16,10 @@ public class Lecture implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "lecture", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Material> materials = new ArrayList<>();
+    private Set<Material> materials = new HashSet<>();
+
+    @OneToMany(mappedBy = "lecture", fetch = FetchType.EAGER)
+    private Set<LectureComment> lectureComments = new HashSet<>();
 
     public Lecture(){}
 
@@ -27,6 +29,10 @@ public class Lecture implements Serializable {
 
     public void removeMaterial(Material material){
         this.materials.remove(material);
+    }
+
+    public void removeLectureComment(LectureComment lectureComment){
+        this.lectureComments.remove(lectureComment);
     }
 
     public Integer getId() {
@@ -45,13 +51,19 @@ public class Lecture implements Serializable {
         this.name = name;
     }
 
-    public List<Material> getMaterials() {
+    public Set<Material> getMaterials() {
         return materials;
     }
 
-    public void setMaterials(List<Material> materials) {
+    public void setMaterials(Set<Material> materials) {
         this.materials = materials;
     }
 
+    public Set<LectureComment> getLectureComments() {
+        return lectureComments;
+    }
 
+    public void setLectureComments(Set<LectureComment> lectureComments) {
+        this.lectureComments = lectureComments;
+    }
 }

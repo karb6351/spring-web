@@ -25,13 +25,15 @@ public class Vote {
     @JoinColumn(name = "response_id")
     private Response response;
 
-
-
     public Vote(){}
 
     public Vote(User user, Response response){
         this.user = user;
         this.response = response;
+    }
+
+    public String toString(){
+        return this.user.getId() + " " + this.response.getId();
     }
 
     public Integer getId() {

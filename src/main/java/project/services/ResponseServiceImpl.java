@@ -17,6 +17,10 @@ public class ResponseServiceImpl implements ResponseService {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private VoteService voteService;
+
+
     @Override
     @Transactional
     public Response getResourceById(int id) {
@@ -64,6 +68,13 @@ public class ResponseServiceImpl implements ResponseService {
     @Transactional
     public boolean isFullResponse(Integer questionId){
         return responseRepository.countByQuestionId(questionId) >= Question.LIMITED_RESPONSE;
+    }
+
+    @Override
+    public boolean isBelongSameQuestion(Integer firstResponseId, Integer secondResponseId){
+        Response r1 = responseRepository.findOne(firstResponseId);
+        Response r2 = responseRepository.findOne(secondResponseId);
+        return r1.getQuestionId() == r2.getQuestionId();
     }
 
 }

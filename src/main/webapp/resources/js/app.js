@@ -98,8 +98,10 @@ function voteHandler(){
         if (target.length !== 0){
             var responseId = target.val();
             var url = target.data("href");
+            var questionId = target.data("questionId");
             axios.post(url, {
-                responseId: responseId
+                responseId: responseId,
+                questionId: questionId
             })
                 .then(function(response){
                     console.log(response);
@@ -108,6 +110,18 @@ function voteHandler(){
                     console.log(error);
                 })
 
+        }
+    });
+}
+
+function fetchVoteResult(){
+    $('#vote-result-button').on('click', function(){
+        var target = $('#vote-wrapper');
+        var url = target.data("href");
+        if (target){
+            target.load(url, function() {
+                $('#result-modal').modal('show');
+            });
         }
     });
 }
@@ -124,4 +138,5 @@ $(document).ready(function(){
     initDropzone();
     initEditor();
     voteHandler();
+    fetchVoteResult()
 });

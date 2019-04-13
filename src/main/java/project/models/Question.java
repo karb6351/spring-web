@@ -3,7 +3,9 @@ package project.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "questions")
@@ -18,7 +20,7 @@ public class Question implements Serializable {
     private String question;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Response> responses = new ArrayList<>();
+    private Set<Response> responses = new HashSet<>();
 
     public Question(){}
 
@@ -28,6 +30,15 @@ public class Question implements Serializable {
 
     public void removeResponse(Response response){
         responses.remove(response);
+    }
+
+    public String[] getResponseName(){
+        String[] responseName = new String[this.responses.size()];
+        int index = 0;
+        for(Response response: this.responses){
+            responseName[index++] = response.getResponse();
+        }
+        return responseName;
     }
 
     public Integer getId() {
@@ -46,11 +57,11 @@ public class Question implements Serializable {
         this.question = question;
     }
 
-    public List<Response> getResponses() {
+    public Set<Response> getResponses() {
         return responses;
     }
 
-    public void setResponses(List<Response> responses) {
+    public void setResponses(Set<Response> responses) {
         this.responses = responses;
     }
 }

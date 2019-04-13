@@ -2,9 +2,7 @@ package project.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -20,8 +18,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Vote> votes;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Vote> votes = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<LectureComment> lectureComments = new HashSet<>();
 
     public User() {}
 
@@ -36,6 +37,16 @@ public class User implements Serializable {
 
     public void addVote(Vote vote){
         this.votes.add(vote);
+    }
+
+    public void removeVote(Vote vote){
+        this.votes.remove(vote);
+    }
+
+    public void removeVoteFromResponse() {
+        for (Vote vote: votes){
+            vote.getResponse().removeVote(vote);
+        }
     }
 
     @Override
@@ -83,5 +94,11 @@ public class User implements Serializable {
         this.votes = votes;
     }
 
+    public Set<LectureComment> getLectureComments() {
+        return lectureComments;
+    }
 
+    public void setLectureComments(Set<LectureComment> lectureComments) {
+        this.lectureComments = lectureComments;
+    }
 }

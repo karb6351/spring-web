@@ -21,7 +21,6 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     @Transactional
     public void uploadFile(Material material) {
-
         materialRepository.saveAndFlush(material);
     }
 
@@ -29,7 +28,6 @@ public class MaterialServiceImpl implements MaterialService {
     @Transactional
     public void deleteMaterial(Integer id){
         Material material = materialRepository.findOne(id);
-        System.out.println(material.getFilename());
         materialRepository.delete(material);
     }
 }

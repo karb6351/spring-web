@@ -5,8 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 import project.exceptions.DuplicateUserException;
 import project.models.User;
 import project.models.UserRole;
+import project.models.Vote;
 import project.repositories.UserRepository;
 import project.repositories.UserRoleRepository;
+import project.repositories.VoteRepository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -20,6 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserRoleRepository userRoleRepository ;
+
+    @Resource
+    private VoteService voteService ;
+
 
     @Override
     public String[] getRolesName(User user){
@@ -47,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public long register(String username, String password) throws DuplicateUserException{
 
-        boolean isRegistered = this.isUserExist(username);
+        boolean isRegistered = isUserExist(username);
         if (isRegistered){
             throw new DuplicateUserException("Username already exist");
         }
@@ -101,6 +107,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean isUserExist(String username){
         User user = userRepository.findByUsername(username);
-        return !(user.getUsername() == null || user.getUsername().equals(""));
+        return !(user == null || user.getUsername().equals(""));
     }
 }

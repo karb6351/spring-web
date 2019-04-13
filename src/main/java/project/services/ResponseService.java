@@ -17,5 +17,6 @@ public interface ResponseService {
 
     boolean isFullResponse(Integer questionId);
 
+    boolean isBelongSameQuestion(Integer firstResponseId, Integer secondResponseId);
 
 }

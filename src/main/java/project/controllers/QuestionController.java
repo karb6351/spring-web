@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import project.models.Question;
+import project.models.Response;
+import project.models.User;
 import project.services.QuestionService;
+import project.services.UserService;
+
+import java.security.Principal;
 
 @Controller
 public class QuestionController {
@@ -20,11 +25,17 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
+    @Autowired
+    UserService userService;
+
+
     @RequestMapping(value = "question/{id}", method = RequestMethod.GET)
-    public String show(@PathVariable Integer id, ModelMap modelMap){
+    public String show(@PathVariable Integer id, ModelMap modelMap, Principal principal){
         Question question = questionService.getQuestionById(id);
+        User user = userService.getUserByUsername(principal.getName());
         modelMap.addAttribute("question", question);
         modelMap.addAttribute("isCreate", true);
+        modelMap.addAttribute("userId", user.getId());
         return "partial/question/show";
     }
 

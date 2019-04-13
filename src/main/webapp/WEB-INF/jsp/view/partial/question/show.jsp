@@ -47,7 +47,18 @@
                                             <div class="form-group">
                                                 <div class="radio d-flex justify-content-between align-items-start">
                                                     <label style="margin-right: 20px;">
-                                                        <input type="radio" class="response" name="optionsRadios" id="response-${response.id}" value="${response.id}" data-href="<c:url value="/vote"></c:url>">
+                                                        <input type="radio"
+                                                               class="response"
+                                                               name="optionsRadios"
+                                                               id="response-${response.id}" value="${response.id}"
+                                                               data-href="<c:url value="/vote"></c:url>"
+                                                               data-question-id="${question.id}"
+                                                                <c:forEach var="vote" items="${response.votes}">
+                                                                    <c:if test="${vote.user.id == userId && vote.response.id == response.id}">
+                                                                            checked
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                        >
                                                         <span style="">${response.response}</span>
                                                     </label>
                                                     <security:authorize access="hasRole('LECTURER')">
@@ -74,7 +85,10 @@
                                                     <i class="fas fa-thumbs-up icon"></i>
                                                     <span>Vote</span>
                                                 </button>
-                                                <button class="btn btn-secondary" data-toggle="modal" data-target="#result-modal">
+                                                <button class="btn btn-secondary"
+                                                        id="vote-result-button"
+                                                        <%--data-toggle="modal" --%>
+                                                        <%--data-target="#result-modal">--%>
                                                     <i class="fas fa-poll-h"></i>
                                                     <span>Result</span>
                                                 </button>
@@ -87,29 +101,14 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-5">
-                    <jsp:include page="../comment/comment.jsp" />
+                    <jsp:include page="../comment/comment.jsp" >
+                        <jsp:param value="${question.id}" name="parentId"></jsp:param>
+                    </jsp:include>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade result-modal" tabindex="-1" role="dialog" id="result-modal">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Vote result</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        test
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="vote-wrapper" data-href="<c:url value="/vote/result/${question.id}"></c:url>"></div>
 
     </jsp:body>
 </t:master>

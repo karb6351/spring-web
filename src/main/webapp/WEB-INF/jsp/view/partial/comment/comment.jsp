@@ -2,36 +2,42 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h6>Comments</h6>
         <security:authorize access="hasAnyRole('LECTURER', 'STUDENT')">
-            <button data-toggle="modal" data-target="#comment-modal" class="btn btn-success">
+            <a href="<c:url value="/lecture/comment/${param.parentId}"></c:url>"
+               <%--data-toggle="modal"--%>
+               <%--data-target="#comment-modal" --%>
+               class="btn btn-success"
+            >
                 <i class="fas fa-plus-circle icon"></i>
                 <span>Add comment</span>
-            </button>
+            </a>
         </security:authorize>
     </div>
     <div class="card-body">
         <ul class="list-group">
-            <a class="list-group-item">
-                <i class="material-icons">face</i>
-                <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">Username</p>
-                    <p class="list-group-item-text">comment...</p>
-                </div>
-            </a>
-
-            <a class="list-group-item">
-                <i class="material-icons">face</i>
-                <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">Username</p>
-                    <p class="list-group-item-text">comment...</p>
-                </div>
-            </a>
-            <a class="list-group-item">
-                <i class="material-icons">face</i>
-                <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">Username</p>
-                    <p class="list-group-item-text">comment...</p>
-                </div>
-            </a>
+            <c:forEach items="${param.list}" var="item">
+                <a class="list-group-item">
+                    <i class="material-icons">face</i>
+                    <div class="bmd-list-group-col">
+                        <p class="list-group-item-heading">${item.user.username}</p>
+                        <p class="list-group-item-text">${item.content}</p>
+                    </div>
+                </a>
+            </c:forEach>
+            <%----%>
+            <%--<a class="list-group-item">--%>
+                <%--<i class="material-icons">face</i>--%>
+                <%--<div class="bmd-list-group-col">--%>
+                    <%--<p class="list-group-item-heading">Username</p>--%>
+                    <%--<p class="list-group-item-text">comment...</p>--%>
+                <%--</div>--%>
+            <%--</a>--%>
+            <%--<a class="list-group-item">--%>
+                <%--<i class="material-icons">face</i>--%>
+                <%--<div class="bmd-list-group-col">--%>
+                    <%--<p class="list-group-item-heading">Username</p>--%>
+                    <%--<p class="list-group-item-text">comment...</p>--%>
+                <%--</div>--%>
+            <%--</a>--%>
         </ul>
     </div>
 </div>

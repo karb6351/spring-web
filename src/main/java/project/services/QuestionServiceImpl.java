@@ -1,6 +1,7 @@
 package project.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.models.Question;
 import project.models.Response;
 import project.repositories.QuestionRepository;
@@ -15,19 +16,27 @@ public class QuestionServiceImpl implements  QuestionService {
     @Resource
     QuestionRepository questionRepository;
 
+    @Override
+    @Transactional
     public List<Question> getQuestions(){
         return this.questionRepository.findAll();
     }
 
+    @Override
+    @Transactional
     public Question getQuestionById(Integer id){
         return this.questionRepository.findOne(id);
     }
 
+    @Override
+    @Transactional
     public int createQuestion(String question){
         Question q = this.questionRepository.save(new Question(question));
         return q.getId();
     }
 
+    @Override
+    @Transactional
     public void updateQuestion(Integer id, String question){
         Question q = this.getQuestionById(id);
         if (q != null){
@@ -36,6 +45,8 @@ public class QuestionServiceImpl implements  QuestionService {
         }
     }
 
+    @Override
+    @Transactional
     public void deleteQuestion(Integer id){
         Question q = this.getQuestionById(id);
         if (q != null){
@@ -43,6 +54,8 @@ public class QuestionServiceImpl implements  QuestionService {
         }
     }
 
+    @Override
+    @Transactional
     public  Question deleteResponse(Response response){
         Question question = response.getQuestion();
         List<Response> removeList = new ArrayList<>();
@@ -53,6 +66,7 @@ public class QuestionServiceImpl implements  QuestionService {
         }
         for(Response buffer: removeList){
             question.removeResponse(buffer);
+            buffer.removeVoteFromUser();
         }
         questionRepository.save(question);
         return question;

@@ -16,6 +16,7 @@ import project.models.Question;
 import project.models.Response;
 import project.services.QuestionService;
 import project.services.ResponseService;
+import project.services.VoteService;
 
 @Controller
 public class ResponseController {
@@ -25,6 +26,9 @@ public class ResponseController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private VoteService voteService;
 
 
     @RequestMapping(value = "response/{questionId}/create", method = RequestMethod.GET)
@@ -67,7 +71,9 @@ public class ResponseController {
     @RequestMapping(value = "/response/delete/{id}", method = RequestMethod.POST)
     public View delete(@PathVariable Integer id){
         Response response = responseService.getResourceById(id);
+        voteService.deleteVolesByResponseId(response.getId());
         Question question = questionService.deleteResponse(response);
-        return new RedirectView("/question/" + question.getId(), true);
+//        responseService.deleteResponse(id);
+        return new RedirectView("/question/" + response.getQuestionId(), true);
     }
 }

@@ -9,4 +9,9 @@ public class VoteSameResponseException extends Exception {
     public VoteSameResponseException(String message){
         this.message = message;
     }
+
+    @Override
+    public String getMessage(){
+        return this.message;
+    }
 }

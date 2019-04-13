@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.exceptions.LectureNotFoundException;
 import project.models.Lecture;
+import project.models.LectureComment;
 import project.models.Material;
 import project.repositories.LectureRepository;
 
@@ -46,6 +47,12 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     @Transactional
+    public void updateLecture(Lecture lecture){
+        lectureRepository.save(lecture);
+    }
+
+    @Override
+    @Transactional
     public void deleteLecture(Integer id) {
         Lecture lecture = lectureRepository.findOne(id);
         lectureRepository.delete(lecture);
@@ -66,6 +73,23 @@ public class LectureServiceImpl implements LectureService {
         }
         lectureRepository.save(lecture);
     }
+
+    @Override
+    @Transactional
+    public void deleteLectureComment(Integer lectureId, LectureComment lectureComment){
+        Lecture lecture = lectureRepository.findOne(lectureId);
+        List<LectureComment> removeList = new ArrayList<>();
+        for(LectureComment buffer: lecture.getLectureComments()){
+            if (buffer.getId().equals(lectureComment.getId())){
+                removeList.add(buffer);
+            }
+        }
+        for(LectureComment buffer: removeList){
+            lecture.removeLectureComment(buffer);
+        }
+        lectureRepository.save(lecture);
+    }
+
 
     @Override
     @Transactional

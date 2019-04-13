@@ -23,7 +23,7 @@ public class Response implements Serializable {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @OneToMany(mappedBy = "response")
+    @OneToMany(mappedBy = "response", fetch = FetchType.EAGER)
     private Set<Vote> votes;
 
     public Response(){}
@@ -37,10 +37,28 @@ public class Response implements Serializable {
         this.question = question;
     }
 
+    @Override
+    public String toString(){
+        return this.response;
+    }
+
     public void addVote(Vote vote){
         this.votes.add(vote);
     }
 
+    public void removeVote(Vote vote){
+        this.votes.remove(vote);
+    }
+
+    public void removeVoteFromUser() {
+        for (Vote vote: votes){
+            vote.getUser().removeVote(vote);
+        }
+    }
+
+    public Integer countVote(){
+        return this.votes.size();
+    }
 
     public Integer getId() {
         return id;

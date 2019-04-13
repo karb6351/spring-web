@@ -15,6 +15,7 @@ import project.models.User;
 import project.models.UserRole;
 import project.services.UserRoleService;
 import project.services.UserService;
+import project.services.VoteService;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,6 +60,10 @@ public class UserController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Autowired
+    private VoteService voteService;
+
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model){
@@ -89,6 +94,7 @@ public class UserController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public View delete(@PathVariable Integer id){
+        voteService.deleteVolesByUserId(id);
         userService.deleteUser(id);
         return new RedirectView("/user/", true);
     }
