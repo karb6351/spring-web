@@ -17,6 +17,8 @@ public interface UserService {
 
     void updateUser(Integer id, String username, List<String> roles);
 
+    void updateUser(User user);
+
     void deleteUser(Integer id);
 
     User getUserByUsername(String username);

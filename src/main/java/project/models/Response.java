@@ -2,6 +2,9 @@ package project.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "responses")
@@ -16,16 +19,12 @@ public class Response implements Serializable {
     @Column(insertable = false, updatable = false, name = "question_id")
     private Integer questionId;
 
-//    @Column(insertable = false, updatable = false, name = "user_id")
-//    private Integer userId;
-
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @OneToMany(mappedBy = "response")
+    private Set<Vote> votes;
 
     public Response(){}
 
@@ -36,6 +35,10 @@ public class Response implements Serializable {
     public Response(String response, Question question){
         this.response = response;
         this.question = question;
+    }
+
+    public void addVote(Vote vote){
+        this.votes.add(vote);
     }
 
 
@@ -63,14 +66,6 @@ public class Response implements Serializable {
         this.questionId = questionId;
     }
 
-//    public Integer getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(Integer userId) {
-//        this.userId = userId;
-//    }
-
     public Question getQuestion() {
         return question;
     }
@@ -79,11 +74,11 @@ public class Response implements Serializable {
         this.question = question;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
 }

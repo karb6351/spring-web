@@ -26,18 +26,12 @@
                                 </div>
                             </security:authorize>
                         </div>
-                        <security:authorize access="hasAnyRole('LECTURER', 'STUDENT')">
-                            <div class="d-flex justify-content-between align-items-center" style="margin-top: 20px;padding:0 10px">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#result-modal">
-                                    <i class="fas fa-poll-h"></i>
-                                    <span>Result</span>
-                                </button>
-                                <security:authorize access="hasRole('LECTURER')">
+                        <security:authorize access="hasRole('LECTURER')">
+                            <div class="d-flex justify-content-end align-items-center" style="margin-top: 20px;padding:0 10px">
                                 <a class="btn btn-success" href="<c:url value="/response/${question.id}/create"></c:url>">
                                     <i class="fas fa-plus-circle"></i>
                                     <span>Add response</span>
                                 </a>
-                                </security:authorize>
                             </div>
                         </security:authorize>
                         <div id="wrapper">
@@ -53,7 +47,7 @@
                                             <div class="form-group">
                                                 <div class="radio d-flex justify-content-between align-items-start">
                                                     <label style="margin-right: 20px;">
-                                                        <input type="radio" name="optionsRadios" id="response-${response.id}" value="${response.id}" checked>
+                                                        <input type="radio" class="response" name="optionsRadios" id="response-${response.id}" value="${response.id}" data-href="<c:url value="/vote"></c:url>">
                                                         <span style="">${response.response}</span>
                                                     </label>
                                                     <security:authorize access="hasRole('LECTURER')">
@@ -74,6 +68,18 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
+                                        <security:authorize access="hasAnyRole('STUDENT', 'LECTURER')">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <button class="btn btn-primary" id="vote">
+                                                    <i class="fas fa-thumbs-up icon"></i>
+                                                    <span>Vote</span>
+                                                </button>
+                                                <button class="btn btn-secondary" data-toggle="modal" data-target="#result-modal">
+                                                    <i class="fas fa-poll-h"></i>
+                                                    <span>Result</span>
+                                                </button>
+                                            </div>
+                                        </security:authorize>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

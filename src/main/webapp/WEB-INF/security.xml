@@ -30,6 +30,8 @@
 
     <http auto-config="true">
 
+        <intercept-url pattern="/response/**" access="hasRole('LECTURER')" />
+
         <intercept-url pattern="/question/create" access="hasRole('LECTURER')" />
         <intercept-url pattern="/question/edit/**" access="hasRole('LECTURER')" />
         <intercept-url pattern="/question/delete/**" access="hasRole('LECTURER')" />
@@ -53,6 +55,7 @@
                 invalidate-session="true"
                 delete-cookies="JSESSIONID" />
         <remember-me key="custSupportSecret" token-validity-seconds="86400" />
+
     </http>
 
     <context:annotation-config />

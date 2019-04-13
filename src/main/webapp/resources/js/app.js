@@ -13,8 +13,6 @@ function initDeleteButton(){
 
         var _this = this;
 
-        // axios.defaults.headers.common[$("meta[name='_csrf_header']").attr("content")] = $('meta[name="_csrf"]').attr("content");
-
         swal(swalObject)
             .then(function (willDelete) {
                 if (willDelete) {
@@ -92,7 +90,26 @@ function initEditor(){
                 }
             });
     }
+}
 
+function voteHandler(){
+    $('#vote').click(function(){
+        var target = $('input:checked.response');
+        if (target.length !== 0){
+            var responseId = target.val();
+            var url = target.data("href");
+            axios.post(url, {
+                responseId: responseId
+            })
+                .then(function(response){
+                    console.log(response);
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+
+        }
+    });
 }
 
 function initSelected2(){
@@ -101,8 +118,10 @@ function initSelected2(){
 
 Dropzone.autoDiscover = false;
 $(document).ready(function(){
+    axios.defaults.headers.common[$("meta[name='_csrf_header']").attr("content")] = $('meta[name="_csrf"]').attr("content");
     initDeleteButton();
     initSelected2();
     initDropzone();
     initEditor();
+    voteHandler();
 });

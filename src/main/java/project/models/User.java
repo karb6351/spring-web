@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +20,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Vote> votes;
+
     public User() {}
 
     public User(String username, String password) {
@@ -28,6 +32,10 @@ public class User implements Serializable {
 
     public void addRole(UserRole userRole){
         this.userRoles.add(userRole);
+    }
+
+    public void addVote(Vote vote){
+        this.votes.add(vote);
     }
 
     @Override
@@ -66,5 +74,14 @@ public class User implements Serializable {
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
 
 }

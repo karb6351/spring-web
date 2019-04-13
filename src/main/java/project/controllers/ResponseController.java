@@ -17,8 +17,6 @@ import project.models.Response;
 import project.services.QuestionService;
 import project.services.ResponseService;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 public class ResponseController {
 
@@ -33,6 +31,7 @@ public class ResponseController {
     public String create(@PathVariable Integer questionId, ModelMap modelMap){
         modelMap.addAttribute("model", new Response());
         modelMap.addAttribute("questionId", questionId);
+        modelMap.addAttribute("isCreate", true);
         return "partial/response/create_update";
     }
 
@@ -54,6 +53,7 @@ public class ResponseController {
         Response response = responseService.getResourceById(id);
         modelMap.addAttribute("model", response);
         modelMap.addAttribute("questionId", questionId);
+        modelMap.addAttribute("isCreate", false);
         return "partial/response/create_update";
     }
 
@@ -70,17 +70,4 @@ public class ResponseController {
         Question question = questionService.deleteResponse(response);
         return new RedirectView("/question/" + question.getId(), true);
     }
-
-
-    @RequestMapping(value = "/response/edit/{id}", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity update(@PathVariable Integer id, HttpServletRequest request) {
-        String response = request.getParameter("response");
-        if (id == null) {
-            return new ResponseEntity<>("{ \"status\" : false }", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>("{ \"status\" : true, \"id\": " + id + " }", HttpStatus.OK);
-    }
-
 }

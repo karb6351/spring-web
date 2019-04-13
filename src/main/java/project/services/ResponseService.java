@@ -11,8 +11,11 @@ public interface ResponseService {
 
     void updateResponse(Integer id, String response);
 
+    void updateResponse(Response response);
+
     void deleteResponse(Integer id);
 
     boolean isFullResponse(Integer questionId);
+
 
 }

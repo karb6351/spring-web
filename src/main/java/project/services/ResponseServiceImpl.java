@@ -47,6 +47,12 @@ public class ResponseServiceImpl implements ResponseService {
 
     @Override
     @Transactional
+    public void updateResponse(Response response){
+        responseRepository.save(response);
+    }
+
+    @Override
+    @Transactional
     public void deleteResponse(Integer id) {
         Response r = getResourceById(id);
         if (r != null){
