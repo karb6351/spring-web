@@ -1,11 +1,12 @@
 package project.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "question_comments")
-public class QuestionComment {
+public class QuestionComment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

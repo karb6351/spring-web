@@ -1,10 +1,11 @@
 package project.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "votes")
-public class Vote {
+public class Vote implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

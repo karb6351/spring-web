@@ -1,12 +1,13 @@
 package project.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "lecture_comments")
-public class LectureComment {
+public class LectureComment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
