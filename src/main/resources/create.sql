@@ -61,7 +61,7 @@ CREATE TABLE votes (
   FOREIGN KEY (response_id) REFERENCES responses(id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE lecture_comments (
   id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
@@ -72,7 +72,7 @@ CREATE TABLE lecture_comments (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (lecture_id) REFERENCES lectures(id),
   PRIMARY KEY (id)
-)
+);
 
 
 CREATE TABLE question_comments (
@@ -84,4 +84,4 @@ CREATE TABLE question_comments (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (question_id) REFERENCES questions(id),
   PRIMARY KEY (id)
-)
+);

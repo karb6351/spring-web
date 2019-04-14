@@ -1,5 +1,6 @@
 package project.controllers;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import project.services.UserRoleService;
 import project.services.UserService;
 import project.services.VoteService;
 
+import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +53,19 @@ public class UserController {
             this.roles = roles;
         }
 
+    }
+
+
+
+    public static class Form {
+        @NotEmpty(message = "Please enter your user name.")
+        private String username;
+        @NotEmpty(message = "Please enter your password.")
+        @Size(min = 6, max = 15, message = "Your password must be between {min} and {max} characters.")
+        private String password;
+        private String confirm_password;
+        @NotEmpty(message = "Please select at least one role.")
+        private String[] roles;
     }
 
 
