@@ -55,20 +55,6 @@ public class UserController {
 
     }
 
-
-
-    public static class Form {
-        @NotEmpty(message = "Please enter your user name.")
-        private String username;
-        @NotEmpty(message = "Please enter your password.")
-        @Size(min = 6, max = 15, message = "Your password must be between {min} and {max} characters.")
-        private String password;
-        private String confirm_password;
-        @NotEmpty(message = "Please select at least one role.")
-        private String[] roles;
-    }
-
-
     @Autowired
     protected UserService userService;
 

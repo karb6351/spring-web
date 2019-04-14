@@ -46,6 +46,8 @@ CREATE TABLE questions (
     PRIMARY KEY (id)
 );
 
+INSERT INTO questions(question) VALUES ('Which date do you prefer for the mid-term test?');
+
 CREATE TABLE responses (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     response VARCHAR(255) NOT NULL,
@@ -53,6 +55,10 @@ CREATE TABLE responses (
     FOREIGN KEY (question_id) REFERENCES questions(id),
     PRIMARY KEY (id)
 );
+
+INSERT INTO responses(response, question_id) VALUES ('12/4', 1);
+INSERT INTO responses(response, question_id) VALUES ('13/4', 1);
+INSERT INTO responses(response, question_id) VALUES ('14/4', 1);
 
 CREATE TABLE votes (
   id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
