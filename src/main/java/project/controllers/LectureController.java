@@ -142,8 +142,6 @@ public class LectureController {
             System.out.println(lcnfe.getMessage());
             return new RedirectView("/", true);
         }
-
-
     }
 
 }

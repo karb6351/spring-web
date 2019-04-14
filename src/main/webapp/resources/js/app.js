@@ -104,10 +104,20 @@ function voteHandler(){
                 questionId: questionId
             })
                 .then(function(response){
-                    console.log(response);
+                    var message = "You are successfully vote this question!";
+                    if (response.data.message){
+                        message = response.data.message;
+                    }
+                    swal({
+                        text: message,
+                        icon: "success",
+                    })
                 })
                 .catch(function(error){
-                    console.log(error);
+                    swal({
+                        text: "Server error. please try again",
+                        icon: "error",
+                    })
                 })
 
         }

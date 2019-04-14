@@ -22,6 +22,9 @@ public class Question implements Serializable {
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Response> responses = new HashSet<>();
 
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private Set<QuestionComment> questionComments = new HashSet<>();
+
     public Question(){}
 
     public Question(String question){
@@ -30,6 +33,10 @@ public class Question implements Serializable {
 
     public void removeResponse(Response response){
         responses.remove(response);
+    }
+
+    public void removeQuestionComment(QuestionComment questionComment){
+        this.questionComments.remove(questionComment);
     }
 
     public String[] getResponseName(){
@@ -63,5 +70,13 @@ public class Question implements Serializable {
 
     public void setResponses(Set<Response> responses) {
         this.responses = responses;
+    }
+
+    public Set<QuestionComment> getQuestionComments() {
+        return questionComments;
+    }
+
+    public void setQuestionComments(Set<QuestionComment> questionComments) {
+        this.questionComments = questionComments;
     }
 }

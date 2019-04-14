@@ -3,6 +3,7 @@ package project.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.models.Question;
+import project.models.QuestionComment;
 import project.models.Response;
 import project.repositories.QuestionRepository;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuestionServiceImpl implements  QuestionService {
+public class QuestionServiceImpl implements QuestionService {
 
     @Resource
     QuestionRepository questionRepository;
@@ -70,6 +71,22 @@ public class QuestionServiceImpl implements  QuestionService {
         }
         questionRepository.save(question);
         return question;
+    }
+
+    @Override
+    @Transactional
+    public void deleteQuestionComment(Integer lectureId, QuestionComment questionComment){
+        Question question = questionRepository.findOne(lectureId);
+        List<QuestionComment> removeList = new ArrayList<>();
+        for(QuestionComment buffer: question.getQuestionComments()){
+            if (buffer.getId().equals(questionComment.getId())){
+                removeList.add(buffer);
+            }
+        }
+        for(QuestionComment buffer: removeList){
+            question.removeQuestionComment(buffer);
+        }
+        questionRepository.save(question);
     }
 
 }

@@ -48,7 +48,9 @@ public class VoteController {
             Vote vote = voteService.vote(user, responseParam.responseId, responseParam.questionId);
             return new ResponseEntity<>("{}", HttpStatus.OK);
         }catch (VoteSameResponseException vsre){
-            return new ResponseEntity<>("{'message' : " +  vsre.getMessage() + "}", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("{'message' : " +  vsre.getMessage() + "}", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("{'message' : " +  e.getMessage() + "}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

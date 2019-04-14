@@ -73,3 +73,15 @@ CREATE TABLE lecture_comments (
   FOREIGN KEY (lecture_id) REFERENCES lectures(id),
   PRIMARY KEY (id)
 )
+
+
+CREATE TABLE question_comments (
+  id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  content VARCHAR(255) DEFAULT NULL,
+  user_id INTEGER DEFAULT NULL,
+  question_id INTEGER DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (question_id) REFERENCES questions(id),
+  PRIMARY KEY (id)
+)

@@ -30,26 +30,37 @@
 
     <http auto-config="true">
 
+        <intercept-url pattern="/vote" access="hasAnyRole('LECTURER', 'STUDENT')" />
+
         <intercept-url pattern="/response/**" access="hasRole('LECTURER')" />
 
         <intercept-url pattern="/question/create" access="hasRole('LECTURER')" />
         <intercept-url pattern="/question/edit/**" access="hasRole('LECTURER')" />
         <intercept-url pattern="/question/delete/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/question/comment/edit/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/question/comment/delete/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/question/comment/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
         <intercept-url pattern="/question/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
+
+        <intercept-url pattern="/lecture/create" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/edit/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/delete/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/comment/edit/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/comment/delete/**" access="hasRole('LECTURER')" />
+        <intercept-url pattern="/lecture/comment/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
+        <intercept-url pattern="/lecture/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
+
 
         <intercept-url pattern="/material/create" access="hasRole('LECTURER')" />
         <intercept-url pattern="/material/download/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
         <intercept-url pattern="/material/delete/**" access="hasRole('LECTURER')" />
 
-        <intercept-url pattern="/lecture/create" access="hasRole('LECTURER')" />
-        <intercept-url pattern="/lecture/edit/**" access="hasRole('LECTURER')" />
-        <intercept-url pattern="/lecture/delete/**" access="hasRole('LECTURER')" />
-        <intercept-url pattern="/lecture/**" access="hasAnyRole('LECTURER', 'STUDENT')" />
-
         <intercept-url pattern="/user/**" access="hasRole('LECTURER')" />
 
         <intercept-url pattern="/login" access="permitAll" />
+
         <form-login login-page="/login" authentication-failure-url="/login?error" />
+
         <logout logout-url="/logout"
                 logout-success-url="/"
                 invalidate-session="true"

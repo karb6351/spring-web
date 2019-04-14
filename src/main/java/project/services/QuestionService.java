@@ -1,6 +1,7 @@
 package project.services;
 
 import project.models.Question;
+import project.models.QuestionComment;
 import project.models.Response;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface QuestionService {
     void deleteQuestion(Integer id);
 
     Question deleteResponse(Response response);
+
+    void deleteQuestionComment(Integer questionId, QuestionComment questionComment);
 
 }
