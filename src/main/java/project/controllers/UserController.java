@@ -98,7 +98,7 @@ public class UserController {
         modelMap.addAttribute("model", user);
         modelMap.addAttribute("roleList", roles);
         modelMap.addAttribute("userRoles", user.getUserRoles());
-        modelMap.addAttribute("isCreate", true);
+        modelMap.addAttribute("isCreate", false);
         return "partial/user/update";
     }
 
