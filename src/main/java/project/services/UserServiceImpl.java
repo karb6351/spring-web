@@ -69,15 +69,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void createUser(String username, String password, List<String> roles){
+        User user = new User(username, password);
+        insertRoleToUser(user, roles);
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
     public void updateUser(Integer id, String username, List<String> roles) {
         User user = this.getUserById(id);
         user.setUsername(username);
+        insertRoleToUser(user, roles);
+        userRepository.save(user);
+    }
+
+    private void insertRoleToUser(User user, List<String> roles){
         List<UserRole> newUserRoles = new ArrayList<>();
         for(String role: roles){
             newUserRoles.add(new UserRole(user, role));
         }
         user.setUserRoles(newUserRoles);
-        userRepository.save(user);
     }
 
     @Override

@@ -73,6 +73,21 @@ public class UserController {
         return "partial/user/index";
     }
 
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create(ModelMap modelMap){
+        List<UserRole> roles = userRoleService.getUserRoles(new User());
+        modelMap.addAttribute("model", new User());
+        modelMap.addAttribute("roleList", roles);
+        modelMap.addAttribute("isCreate", true);
+        return "partial/user/update";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public View save(@RequestBody MultiValueMap<String, String> formData){
+        userService.createUser(formData.getFirst("username"), formData.getFirst("password"), formData.get("roles[]"));
+        return new RedirectView("/user/");
+    }
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Integer id, ModelMap modelMap){
         User user = userService.getUserById(id);
@@ -83,6 +98,7 @@ public class UserController {
         modelMap.addAttribute("model", user);
         modelMap.addAttribute("roleList", roles);
         modelMap.addAttribute("userRoles", user.getUserRoles());
+        modelMap.addAttribute("isCreate", true);
         return "partial/user/update";
     }
 

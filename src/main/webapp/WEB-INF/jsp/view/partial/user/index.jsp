@@ -14,8 +14,12 @@
                     <c:otherwise>
                         <div class="col-sm-12">
                             <div class="card">
-                                <div class="card-header d-flex justify-content-between">
+                                <div class="card-header d-flex justify-content-between align-items-center">
                                     <h6>User</h6>
+                                    <a href="<c:url value="/user/create" ></c:url>" class="btn btn-success">
+                                        <i class="fas fa-plus-circle icon"></i>
+                                        <span>Create</span>
+                                    </a>
                                 </div>
                                 <table class="table table-hover">
                                     <thead>

@@ -15,9 +15,12 @@ public interface UserService {
 
     String[] getRolesName(User user);
 
+    void createUser(String username, String password, List<String> roles);
+
     void updateUser(Integer id, String username, List<String> roles);
 
     void updateUser(User user);
+
 
     void deleteUser(Integer id);
 

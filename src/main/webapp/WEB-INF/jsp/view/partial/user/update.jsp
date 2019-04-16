@@ -14,6 +14,12 @@
                                     <form:label path="username">Username</form:label>
                                     <form:input cssClass="form-control" path="username" />
                                 </div>
+                                <c:if test="${isCreate}">
+                                    <div class="form-group">
+                                        <form:label path="password">Password</form:label>
+                                        <form:input cssClass="form-control" path="password" />
+                                    </div>
+                                </c:if>
                                 <div class="form-group">
                                     <label>Roles</label>
                                     <select name="roles[]" multiple="true" class="form-control selected2">
