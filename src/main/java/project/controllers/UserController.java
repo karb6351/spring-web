@@ -85,7 +85,7 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public View save(@RequestBody MultiValueMap<String, String> formData){
         userService.createUser(formData.getFirst("username"), formData.getFirst("password"), formData.get("roles[]"));
-        return new RedirectView("/user/");
+        return new RedirectView("/user/", true);
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
